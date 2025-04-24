@@ -1,0 +1,30 @@
+.action-menu {
+    position: absolute;
+    background: rgb(222, 9, 9);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+  }
+  
+  .action-menu button {
+    background: none;
+    border: none;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .action-menu button:hover {
+    background: #c20707;
+  }
+  
+  .menu-wrapper {
+    position: absolute;
+    z-index: 100;
+  }
+  

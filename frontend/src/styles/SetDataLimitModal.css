@@ -1,0 +1,78 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+  }
+  
+  .input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  input, select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .set-btn {
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .set-btn:hover {
+    background: #0056b3;
+  }
+  
+  .close-btn {
+    width: 100%;
+    background: #ccc;
+    color: black;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+  }
+  
+  .close-btn:hover {
+    background: #999;
+  }
+  
+  .modal-overlay {
+    display: flex !important;
+    z-index: 1000 !important;
+  }
+
+  .message {
+    margin: 10px 0;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  

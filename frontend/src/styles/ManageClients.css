@@ -1,0 +1,194 @@
+.manage-clients {
+  flex-grow: 1;
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.create-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background: #0056b3;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #f9f9f9;
+}
+
+td a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+td a:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.icon.link {
+  color: blue;
+}
+
+.icon.unlink {
+  color: red;
+}
+
+.icon.edit {
+  color: #ffc107;
+}
+
+.icon.info {
+  color: #17a2b8;
+}
+
+.icon.delete {
+  color: red;
+}
+
+.icon.more {
+  color: gray;
+}
+
+.dashboard-container {
+  display: flex;
+}
+
+.manage-clients {
+  flex: 1;
+  padding: 20px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.cancel-btn {
+  background: white;
+  border: 1px solid black;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.logout-btn {
+  background: red;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn {
+  background: #ddd;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

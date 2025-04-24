@@ -1,0 +1,40 @@
+[
+    {
+        "id": "vm1",
+        "management_ip": "192.168.50.10",
+        "management_interface_name": "enp0s9",
+        "management_interface_config": "addresses: [192.168.50.10/24]",
+        "interface_to_change": "enp0s8"
+      },
+      {
+        "id": "vm2",
+        "management_ip": "192.168.50.20",
+        "management_interface_name": "enp0s9",
+        "management_interface_config": "addresses: [192.168.50.20/24]",
+        "interface_to_change": "enp0s8"
+      },
+      
+    {
+        "id": "vm3",
+        "management_ip": "192.168.50.30",
+        "management_interface_name": "enp0s9",
+        "management_interface_config": "addresses: [192.168.50.30/24]",
+        "interface_to_change": "enp0s8"
+        
+    },
+    {
+        "id": "vm4",
+        "management_ip": "192.168.50.40",
+        "management_interface_name": "enp0s9",
+        "management_interface_config": "addresses: [192.168.50.40/24]",
+        "interface_to_change": "enp0s8"
+    },
+    {
+        "id": "vm5",
+        "management_ip": "192.168.50.50",
+        "management_interface_name": "enp0s9",
+        "management_interface_config": "addresses: [192.168.50.50/24]",
+        "interface_to_change": "enp0s8"
+    }
+  ]
+  

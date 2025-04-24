@@ -1,0 +1,182 @@
+.manage-gateway-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #f8f8f8;
+}
+
+.gateway-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.gateway-content h2 {
+  margin-bottom: 10px;
+}
+
+.gateway-content label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.gateway-input {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 10px 0 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.gateway-table {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
+
+.in-use {
+  color: red;
+  font-weight: bold;
+}
+
+.actions {
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Table action menu */
+.actions {
+  position: relative;
+}
+
+.dots {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.action-menu {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  z-index: 10;
+}
+
+.action-menu button {
+  background: none;
+  border: none;
+  padding: 10px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-menu button:hover {
+  background: #f0f0f0;
+}
+
+.dropdown {
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 10;
+}
+
+/* Modal Styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.assign-btn {
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.assigned {
+  color: green;
+  font-weight: bold;
+}
+
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+}
+
+.action-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}

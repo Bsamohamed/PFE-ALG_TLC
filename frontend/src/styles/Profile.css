@@ -1,0 +1,242 @@
+/* Profile Container */
+.profile-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f9f9f9;
+  }
+  .profile-wrapper {
+    width: 100%;
+  } 
+  /* Profile Content */
+  .profile-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  /* Page Title */
+  .profile-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Profile Card */
+  .profile-card {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  /* Profile Header */
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Avatar */
+  .profile-avatar {
+    font-size: 50px;
+    background: #007bff;
+    color: white;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-right: 15px;
+  }
+  
+  /* Profile Info */
+  .profile-info h3 {
+    font-size: 20px;
+    margin: 0;
+  }
+  
+  .profile-info p {
+    font-size: 14px;
+    color: gray;
+    margin: 0;
+  }
+  
+  /* Profile Details */
+  .profile-details {
+    margin-top: 10px;
+  }
+  
+  .profile-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .profile-icon {
+    font-size: 18px;
+    color: gray;
+    margin-right: 10px;
+  }
+  
+  .profile-label {
+    flex: 1;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .profile-value {
+    font-size: 16px;
+    color: black;
+  }
+  
+  .profile-action {
+    color: blue;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  
+  .toggle-password {
+    cursor: pointer;
+    font-size: 18px;
+    color: black;
+  }
+  
+  /* Notification Box */
+  .notification-box {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+
+  /* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Modal Box */
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px; /* Adjust width */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Modal Title */
+  .modal h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  /* Input Group */
+  .modal-input-group {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  /* Label */
+  .modal-input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  /* Input Field */
+  .modal-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .modal-input input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    padding: 5px;
+  }
+  
+  .modal-input span {
+    cursor: pointer;
+    font-size: 18px;
+    color: gray;
+    margin-left: 10px;
+  }
+  
+  /* Error Message */
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    text-align: center;
+  }
+  
+  /* Button Container */
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  /* Buttons */
+  .cancel-button,
+  .change-button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    flex: 1;
+  }
+  
+  .cancel-button {
+    background: white;
+    border: 1px solid gray;
+  }
+  
+  .change-button {
+    background: linear-gradient(45deg, green, blue);
+    color: white;
+    border: none;
+    margin-left: 10px;
+  }
+  
+  .change-button:hover {
+    opacity: 0.8;
+  }
+  

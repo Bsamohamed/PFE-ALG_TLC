@@ -1,4 +1,5 @@
 # Logs
+logs
 
 npm-debug.log*
 yarn-debug.log*
@@ -23,8 +24,10 @@ dist-ssr
 *.sw?
 
 # Ignorer les environnements Python
-
-
+mon_env/
+env/
+venv/
+*.egg-info/
 
 # Ignorer les dépendances
 __pycache__/

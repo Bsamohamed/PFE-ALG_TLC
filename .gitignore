@@ -1,8 +1,57 @@
+# Logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Ignorer les environnements Python
+
+
+
+# Ignorer les dépendances
+__pycache__/
+*.py[cod]
+
+# Ignorer les bibliothèques installées
+backend/src/IA/mon_env/
+
+# Fichiers systèmes/déchets
+.DS_Store
+
 # Node
 node_modules
 
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+*.joblib
 
+# React
+frontend/dist
+frontend/.vite
 
-
+# System
+.DS_Store
 

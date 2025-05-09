@@ -12,9 +12,8 @@ const Dashboard = () => {
         <h2>Quick Panel</h2>
 
         <div className="stats-container">
-          <StatsBox title="Available Gateways" value="05" />
-          <StatsBox title="Ready VPS" value="13" />
-          <StatsBox title="Active Clients" value="08" />
+          <StatsBox title="Available Gateways" value="03" />
+          <StatsBox title="Available VPS" value="05" />
         </div>
 
         <div className="cards-container">

@@ -1,0 +1,64 @@
+.assign-card {
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    width: 30%;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    text-align: center;
+  }
+  
+  .ip-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin: 15px 0;
+  }
+  
+  .ip-form select {
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .ip-form input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+  }
+  
+  .assign-submit {
+    background: linear-gradient(to right, #0f9d58, #4285f4);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .assign-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .assign-cancel {
+    background: #e74c3c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .assign-cancel:hover {
+    background: #c0392b;
+  }

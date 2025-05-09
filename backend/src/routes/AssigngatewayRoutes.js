@@ -9,10 +9,10 @@ const gatewayMap = {
 };
 
 const dbConfig = {
-  host: "192.168.4.10",
+  host: '192.168.4.10', 
   user: "mohammed",
   password: "mohammed",
-  database: "freeradius",
+  database: "freeradius"
 };
 
 router.post("/assign-gateway/:id", async (req, res) => {
@@ -29,7 +29,7 @@ router.post("/assign-gateway/:id", async (req, res) => {
     const connection = await mysql.createConnection(dbConfig);
 
     const [rows] = await connection.execute(
-      "SELECT * FROM radcheck WHERE id = ?",
+      "SELECT * FROM radcheck WHERE idClient = ?",
       [id]
     );
 
@@ -64,5 +64,40 @@ router.post("/assign-gateway/:id", async (req, res) => {
     res.status(500).json({ error: "Database error" });
   }
 });
+
+
+
+router.delete("/unassign-gateway/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+  
+    try {
+      const connection = await mysql.createConnection(dbConfig);
+  
+      // Get client's username
+      const [rows] = await connection.execute(
+        "SELECT username FROM radcheck WHERE idClient = ?",
+        [id]
+      );
+  
+      if (rows.length === 0) {
+        await connection.end();
+        return res.status(404).json({ error: "Client not found" });
+      }
+  
+      const username = rows[0].username;
+  
+      // Remove NAS-IP-Address entry
+      await connection.execute(
+        "DELETE FROM radcheck WHERE username = ? AND attribute = 'NAS-IP-Address'",
+        [username]
+      );
+  
+      await connection.end();
+      res.json({ message: `Unassigned gateway from user '${username}' (ID: ${id})` });
+    } catch (error) {
+      console.error("DB Error:", error);
+      res.status(500).json({ error: "Database error" });
+    }
+  });
 
 module.exports = router;

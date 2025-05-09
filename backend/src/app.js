@@ -34,7 +34,7 @@ app.use('/api/clients', clientRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api', gatewayRoutes);
 app.use('/api/anomaly', anomalyRoutes);
-app.use('/vm', vmRoutes); // Toutes les routes VM
+app.use('/api/vm', vmRoutes); // Toutes les routes VM
 app.use('/api/gateway', AssigngatewayRoutes);
 
 

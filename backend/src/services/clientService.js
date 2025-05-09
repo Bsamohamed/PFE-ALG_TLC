@@ -5,63 +5,72 @@ exports.createClient = async (data) => {
   try {
     await conn.beginTransaction();
 
+    // Insertion dans ClientAccount
     const [accountResult] = await conn.query(
       `INSERT INTO ClientAccount (data_limit, logs, begin_usage_date, end_usage_date)
        VALUES (?, ?, ?, ?)`,
-      [data.data_limit, '', data.begin_usage_date, data.end_usage_date]
+      [data.data_limit, '', data.begin_usage_date, data.end_date] // Utilisation de data.end_date ici
     );
     const idClientAccount = accountResult.insertId;
 
+    // Insertion dans Client
     const [clientResult] = await conn.query(
       `INSERT INTO Client (nom, email, password, creation_date, end_date, idClientAccount)
        VALUES (?, ?, ?, NOW(), ?, ?)`,
-      [data.nom, data.email, data.password, data.end_usage_date, idClientAccount]
+      [data.nom, data.email, data.password, data.end_date, idClientAccount] // Utilisation de data.end_date ici
     );
     const idClient = clientResult.insertId;
 
+    // Insertion dans radcheck pour le mot de passe
     await conn.query(
       `INSERT INTO radcheck (username, attribute, op, value, idClient)
        VALUES (?, 'Cleartext-Password', ':=', ?, ?)`,
       [data.email, data.password, idClient]
     );
 
+    console.log("Adresse IP reçue :", data.ipAddress);
 
-    console.log("Adresse IP reçue :", data.ip_address);
-
+    // Insertion dans radreply pour l'adresse IP
     await conn.query(
       `INSERT INTO radreply (username, attribute, op, value)
        VALUES (?, 'Framed-IP-Address', '=', ?)`,
-      [data.email, data.ip_address]
+      [data.email, data.ipAddress]
     );
     
-
+    // Validation de la transaction
     await conn.commit();
 
+    // Retour des données du client créé
     return {
       idClient,
       nom: data.nom,
       email: data.email,
       creation_date: new Date().toISOString(),
-      end_date: data.end_usage_date,
+      end_date: data.end_date, // Retour de la bonne valeur pour end_date
       begin_usage_date: data.begin_usage_date,
-      data_limit: data.data_limit
+      data_limit: data.data_limit,
+      ipAddress: data.ipAddress
     };
   } catch (err) {
-    await conn.rollback();
+    await conn.rollback(); // Annuler la transaction en cas d'erreur
     throw err;
   } finally {
-    conn.release();
+    conn.release(); // Libérer la connexion
   }
 };
+
+
 
 exports.getClients = async () => {
   const [rows] = await db.query(`
     SELECT c.idClient, c.nom, c.email, c.password, 
            ca.begin_usage_date, ca.end_usage_date, 
-           r.value AS ip_address
+           r.value AS ip_address,
+           rc.value AS gateway
     FROM Client c
     JOIN ClientAccount ca ON c.idClientAccount = ca.idClientAccount
     LEFT JOIN radreply r ON c.email = r.username AND r.attribute = 'Framed-IP-Address'
+    LEFT JOIN radcheck rc ON c.email = rc.username AND rc.attribute = 'NAS-IP-Address'
   `);
   return rows;
 };
@@ -70,10 +79,12 @@ exports.getClientById = async (idClient) => {
   const [rows] = await db.query(`
     SELECT c.idClient, c.nom, c.email, c.password, c.creation_date, c.end_date,
            ca.begin_usage_date, ca.end_usage_date,
-           r.value AS ip_address
+           r.value AS ip_address,
+           rc.value AS gateway
     FROM Client c 
     LEFT JOIN ClientAccount ca ON c.idClientAccount = ca.idClientAccount 
     LEFT JOIN radreply r ON c.email = r.username AND r.attribute = 'Framed-IP-Address'
+    LEFT JOIN radcheck rc ON c.email = rc.username AND rc.attribute = 'NAS-IP-Address'
     WHERE c.idClient = ?
   `, [idClient]);
 

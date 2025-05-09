@@ -54,4 +54,20 @@ export const clientService = {
   // Obtenir les anomalies détectées
   
   getAnomalies: () => api.get('/anomaly/detect'),
+
+  // clientService.js
+assignGateway: (clientId, gatewayNumber) => 
+  api.post(`/gateway/assign-gateway/${clientId}`, { gateway: gatewayNumber }),
+
+// Assigner une passerelle
+assignGatewayVPS: (vpsId, gateway, host) => 
+  api.post(`/vm/${vpsId}/ip`, { gateway, host }),
+
+
+  // ... existing methods
+  unassignGateway: (id) => api.delete(`/gateway/unassign-gateway/${id}`),
+
+   // Vérifier le statut du VPS
+   getVpsStatus: () => api.get('/vm/status'),
+
 };

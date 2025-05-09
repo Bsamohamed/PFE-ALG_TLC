@@ -76,7 +76,7 @@ const Profile = () => {
                   Change Password
                 </span>
                 <span className="profile-icon toggle-password" onClick={togglePasswordVisibility}>
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword }
                 </span>
               </div>
             </div>

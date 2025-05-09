@@ -8,9 +8,7 @@ const ManageGateway = () => {
     <div className="manage-gateway-container">
       <Sidebar />
       <div className="gateway-content">
-        <h2>Manage Gateway</h2>
-        <label>Gateway</label>
-        <input type="text" placeholder="Enter Gateway ID" className="gateway-input" />
+        <h1>Manage Gateway</h1>
         <GatewayTable />
       </div>
     </div>

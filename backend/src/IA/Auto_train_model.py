@@ -7,7 +7,7 @@ import mysql.connector
 # Connexion à la base
 def get_db_connection():
     return mysql.connector.connect(
-         host= '172.16.110.130',     
+         host= '192.168.4.10',     
          user= 'mohammed',
          password= 'mohammed',
          database= 'freeradius',

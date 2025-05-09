@@ -17,13 +17,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/Dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/ManageGateway" element={<ManageGateway />} />
-        <Route path="/ManageClients" element={<ManageClients />} />
-        <Route path="/ConsultVps" element={<ConsultVPS />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/notifications" element={<Notifications />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/ManageGateway" element={<ProtectedRoute><ManageGateway /></ProtectedRoute>} />
+        <Route path="/ManageClients" element={<ProtectedRoute><ManageClients /></ProtectedRoute>} />
+        <Route path="/ConsultVps" element={<ProtectedRoute><ConsultVPS /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+        <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="*" element={<ProtectedRoute><NotFound /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

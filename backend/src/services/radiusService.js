@@ -2,7 +2,7 @@ const radius = require('radius');
 const dgram = require('dgram');
 
 const RADIUS_SECRET = 'testing123'; // même que dans clients.conf
-const RADIUS_SERVER = '172.16.110.129'; // IP de ta VM
+const RADIUS_SERVER = '192.168.4.10'; // IP de ta VM
 const RADIUS_PORT = 1812;
 
 const authenticateUser = (username, password) => {

@@ -1,7 +1,7 @@
 // server.js
 require('dotenv').config();
 const mainApp = require('./src/app'); // backend principal
-const { checkVmHealth } = require('./services/vmService'); // service de vérification VM
+const { checkVmHealth } = require('./src/services/vmService'); // service de vérification VM
 const VMS = require('./vms.json');
 
 const MAIN_PORT = process.env.MAIN_PORT || 5000;

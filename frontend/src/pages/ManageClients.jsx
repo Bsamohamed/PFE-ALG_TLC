@@ -36,6 +36,10 @@ const ManageClients = () => {
   const [showCreateClientCard, setShowCreateClientCard] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [assigningClient, setAssigningClient] = useState(null);
+  // Add state
+const [unassignClient, setUnassignClient] = useState(null);
+
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -55,14 +59,24 @@ const ManageClients = () => {
     loadClients();
   }, []);
 
+
+  // Frontend: Add this near your component
+const gatewayMap = {
+  1: "192.168.4.40",
+  2: "192.168.4.20",
+  3: "192.168.4.30"
+};
+
   // Convertit les données de l'API dans le format attendu
   const mapApiToClient = (apiClient) => ({
     id: apiClient.idClient,
-    name: apiClient.nom || 'Reload To Show Name' ,
+    name: apiClient.nom || 'Reload To Show Name',
     email: apiClient.email || '',
     status: apiClient.status || 'Offline',
     ip: apiClient.ip_address || '',
-    assignment: apiClient.assignment || 'Not Assigned',
+    assignment: apiClient.gateway ? 
+    `Gateway ${String(Object.keys(gatewayMap).find(k => gatewayMap[k] === apiClient.gateway)).padStart(2, '0')}` : 
+    'Not Assigned',
     startDate: apiClient.begin_usage_date || new Date().toISOString(),
     endDate: apiClient.end_usage_date || new Date().toISOString()
   });
@@ -73,7 +87,7 @@ const ManageClients = () => {
       const apiData = {
         nom: newClient.clientName,
         email: newClient.email,
-        ip_address: newClient.ipAddress,
+        ipAddress: newClient.ipAddress,
         password: newClient.password,
         begin_usage_date: newClient.beginDate,
         end_usage_date: newClient.endDate,
@@ -85,15 +99,13 @@ const ManageClients = () => {
   return;
 }
 
-      
-  
       const response = await clientService.createClient(apiData);
   
       // 🔄 Option 1 : Si l'API ne renvoie pas l'IP, faire un GET par ID
       const createdClientId = response.data?.idClient;
   
       // Si l'API n'inclut pas ip_address dans la réponse :
-      const getResponse = await clientService.getClientById(createdClientId); // 👉 à implémenter dans `clientService`
+      const getResponse = await clientService.getClientById(createdClientId); // 👉 à implémenter dans clientService
   
       const newClientData = mapApiToClient(getResponse.data);
   
@@ -105,6 +117,42 @@ const ManageClients = () => {
       setError("Failed to create client");
     }
   };
+
+
+  
+  
+    const handleGatewayAssign = async (clientId, gatewayNumber) => {
+      try {
+        await clientService.assignGateway(clientId, gatewayNumber);
+        const displayName = `Gateway 0${gatewayNumber}`;
+        setClients(prevClients =>
+          prevClients.map(client =>
+            client.id === clientId ? { ...client, assignment: displayName } : client
+          )
+        );
+        setAssigningClient(null);
+      } catch (err) {
+        console.error("Assignment error:", err);
+        setError("Failed to assign gateway. Please try again.");
+      }
+    };
+
+
+    const handleUnassignGateway = async (clientId) => {
+      try {
+        await clientService.unassignGateway(clientId);
+        setClients(prevClients =>
+          prevClients.map(client =>
+            client.id === clientId ? { ...client, assignment: "Not Assigned" } : client
+          )
+        );
+      } catch (err) {
+        console.error("Unassignment error:", err);
+        setError("Failed to unassign gateway. Please try again.");
+      }
+    };
+  
+  
   
 
   const handleEditSave = async (updatedClient) => {
@@ -205,15 +253,15 @@ const ManageClients = () => {
             value={search}
             onChange={handleSearch}
           />
-        </div>
-
-        <div className="table-container">
+        </div><div className="table-container">
+  {loading ? (
+    <div className="loading-indicator">Loading clients...</div>
+  ) : (
           <table>
             <thead>
               <tr>
                 <th>Client ID</th>
                 <th>Client Name</th>
-                <th>Status</th>
                 <th>IP Address</th>
                 <th>Assignment</th>
                 <th>Actions</th>
@@ -224,44 +272,95 @@ const ManageClients = () => {
                 <tr key={client.id}>
                   <td>#{client.id}</td>
                   <td>{client.name}</td>
-                  <td className={client.status === "Active" ? "active" : "offline"}>
-                    {client.status === "Active" ? "🟢 Active" : "⚫ Offline"}
-                  </td>
                   <td>{client.ip || "Not Assigned"}</td>
                   <td>{client.assignment}</td>
                   <td className="actions">
-                    {client.assignment === "Not Assigned" ? (
-                      <FaLink className="icon link" title="Assign Gateway" />
-                    ) : (
-                      <FaUnlink className="icon unlink" title="Unassign Gateway" />
-                    )}
-                    <FaPen 
-                      className="icon edit" 
-                      title="Edit Client" 
-                      onClick={() => setEditingClient(client)}
-                    />
-                    <FaInfoCircle 
-                      className="icon info" 
-                      title="Client Info" 
-                      onClick={() => setSelectedClient(client)}
-                    />
-                    <FaTrash 
-                      className="icon delete"
-                      title="Delete Client"
-                      onClick={() => setDeleteClient(client)}
-                    />
-                    <FaEllipsisV 
-                      className="icon more" 
-                      title="More Options" 
-                      onClick={(e) => handleMenuOpen(e, client)}
-                    />
-                  </td>
+  {client.assignment === "Not Assigned" ? (
+    <FaLink 
+      className="icon link" 
+      title="Assign Gateway"
+      onClick={() => setAssigningClient(client)}
+    />
+  ) : (
+    <FaUnlink 
+  className="icon unlink" 
+  title="Unassign Gateway"
+  onClick={() => setUnassignClient(client)}  // Changed from handleUnassignGateway(client.id)
+/>
+  )}
+  <FaPen 
+    className="icon edit" 
+    title="Edit Client"
+    onClick={() => setEditingClient(client)}
+  />
+  <FaInfoCircle 
+    className="icon info" 
+    title="Client Info"
+    onClick={() => setSelectedClient(client)}
+  />
+  <FaTrash 
+    className="icon delete" 
+    title="Delete Client"
+    onClick={() => setDeleteClient(client)}
+  />
+  <FaEllipsisV 
+    className="icon menu" 
+    title="More Actions"
+    onClick={(e) => handleMenuOpen(e, client)}
+  />
+</td>
+
                 </tr>
               ))}
             </tbody>
           </table>
+          )}
         </div>
       </div>
+
+
+      {assigningClient && (
+  <div className="assign-card">
+    <h4>Assign a Gateway to {assigningClient.name}</h4>
+    <div className="gateway-options">
+      <button onClick={() => handleGatewayAssign(assigningClient.id, 1)}>Gateway 01</button>
+      <button onClick={() => handleGatewayAssign(assigningClient.id, 2)}>Gateway 02</button>
+      <button onClick={() => handleGatewayAssign(assigningClient.id, 3)}>Gateway 03</button>
+    </div>
+    <button className="cancel-assign" onClick={() => setAssigningClient(null)}>Cancel</button>
+  </div>
+)}
+
+
+
+
+
+
+
+
+
+{unassignClient && (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h2>Unassign Gateway from {unassignClient.name}?</h2>
+      <div className="modal-actions">
+        <button className="cancel-btn" onClick={() => setUnassignClient(null)}>
+          Cancel
+        </button>
+        <button 
+          className="confirm-btn" 
+          onClick={() => {
+            handleUnassignGateway(unassignClient.id);
+            setUnassignClient(null);
+          }}
+        >
+          Confirm Unassign
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       {deleteClient && (
         <div className="modal-overlay">
@@ -295,9 +394,7 @@ const ManageClients = () => {
             onClose={() => setMenuClient(null)}
           />
         </div>
-      )}
-
-      {selectedClient && <ClientInfoModal client={selectedClient} onClose={() => setSelectedClient(null)} />}
+      )}{selectedClient && <ClientInfoModal client={selectedClient} onClose={() => setSelectedClient(null)} />}
       {editingClient && <EditClientModal client={editingClient} onSave={handleEditSave} onClose={() => setEditingClient(null)} />}
       {dataLimitClient && <SetDataLimitModal client={dataLimitClient} onClose={() => setDataLimitClient(null)} />}
       {logoutClient && <ForceLogoutModal client={logoutClient} onClose={() => setLogoutClient(null)} />}
@@ -317,6 +414,14 @@ const ManageClients = () => {
   />
 )}
 
+
+
+{error && (
+  <div className="error-message">
+    {error}
+    <button onClick={() => setError(null)}>×</button>
+  </div>
+)}
 
 {sessionClient && (
   <SessionMonitorModal

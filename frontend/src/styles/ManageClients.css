@@ -1,3 +1,5 @@
+
+
 .manage-clients {
   flex-grow: 1;
   width: 100%;
@@ -192,3 +194,38 @@ td a:hover {
   border-radius: 5px;
   cursor: pointer;
 }
+
+
+
+.assign-card {
+  position: fixed;
+  top: 30%;
+  left: 40%;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.gateway-options button {
+  margin: 10px;
+  padding: 10px 15px;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cancel-assign {
+  margin-top: 15px;
+  background-color: #ccc;
+  color: #333;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+

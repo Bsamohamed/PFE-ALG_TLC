@@ -2,7 +2,8 @@
 const { NodeSSH } = require('node-ssh');
 const { generateNetplanConfig } = require('../utils/netplanGenerator');
 const { SSH_USER, privateKey } = require('../config/sshConfig');
-const VMS = require('../vms.json');
+const path = require('path');
+const VMS = require(path.join(__dirname, '../../vms.json'));
 
 const netplanFilePath = '/etc/netplan/50-cloud-init.yaml';
 

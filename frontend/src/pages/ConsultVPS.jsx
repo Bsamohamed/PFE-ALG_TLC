@@ -1,74 +1,97 @@
-import React, { useState } from "react";
-import Sidebar from "../components/Sidebar"; // Import Sidebar
+import React, { useState, useEffect } from "react";
+import { FaLink } from "react-icons/fa";
+import Sidebar from "../components/Sidebar";
+import AssignCard from "../components/AssignCard";
 import "../styles/ConsultVPS.css";
-
-const vpsData = [
-  { id: 1, name: "VPS 01", status: "Ready", server: "Server 01", assignment: "Not Assigned" },
-  { id: 2, name: "VPS 02", status: "Linked", server: "Server 01", assignment: "Gateway 01" },
-  { id: 3, name: "VPS 03", status: "Linked", server: "Server 01", assignment: "Gateway 04" },
-  { id: 4, name: "VPS 04", status: "Linked", server: "Server 01", assignment: "Gateway 04" },
-  { id: 5, name: "VPS 05", status: "Ready", server: "Server 01", assignment: "Not Assigned" },
-  { id: 6, name: "VPS 06", status: "Ready", server: "Server 01", assignment: "Not Assigned" },
-  { id: 7, name: "VPS 07", status: "Linked", server: "Server 01", assignment: "Gateway 05" },
-  { id: 8, name: "VPS 08", status: "Linked", server: "Server 01", assignment: "Gateway 02" },
-];
+import { clientService } from "../services/api";
 
 const ConsultVPS = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showAssignCard, setShowAssignCard] = useState(false);
+    const [selectedVPS, setSelectedVPS] = useState(null);
+    const [vpsData, setVpsData] = useState([]);
 
-  const filteredVPS = vpsData.filter((vps) =>
-    vps.id.toString().includes(searchTerm)
-  );
+    useEffect(() => {
+        const fetchVpsData = async () => {
+            try {
+                const response = await clientService.getVpsStatus();
+                setVpsData(response.data);
+            } catch (error) {
+                console.error("Error fetching VPS data:", error);
+            }
+        };
 
-  return (
-    <div className="layout">
-      {/* Sidebar toujours à gauche */}
-      <Sidebar />
+        fetchVpsData();
+    }, []);
 
-      {/* Contenu à droite */}
-      <div className="consult-vps-content">
-        <h2>Consult VPS</h2>
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Enter VPS ID"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    const filteredVPS = vpsData.filter((vps) =>
+        vps.id.toString().includes(searchTerm)
+    );
+
+    const handleAssignClick = (vps) => {
+        setSelectedVPS(vps);
+        setShowAssignCard(true);
+    };
+
+    return (
+        <div className="layout">
+            <Sidebar />
+
+            <div className="consult-vps-content">
+                <h2>Manage VPS</h2>
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Enter VPS ID"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                </div>
+
+                <table className="vps-table">
+                    <thead>
+                        <tr>
+                            <th>VPS ID</th>
+                            <th>Status</th>
+                            <th>Gateway</th>
+                            <th>IP address</th>
+                            <th>Assign</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredVPS.map((vps) => (
+                            <tr key={vps.id}>
+                                <td>
+                                    <a href={`/vps/${vps.id}`} className="vps-link">
+                                        #{vps.id}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span className={vps.status === "Reachable" ? "status-reachable" : "status-unreachable"}>
+                                        {vps.status}
+                                    </span>
+                                </td>
+                                <td>{vps["assigned_gateway"] || "-"}</td>
+                                <td>{vps["assigned_ip"] || "-"}</td>
+                                <td>
+                                    <button className="assign-button" onClick={() => handleAssignClick(vps)}>
+                                        <FaLink />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+
+            {showAssignCard && selectedVPS && (
+                <AssignCard
+                    vps={selectedVPS}
+                    onClose={() => setShowAssignCard(false)}
+                />
+            )}
         </div>
-
-        <table className="vps-table">
-          <thead>
-            <tr>
-              <th>VPS ID</th>
-              <th>VPS Name</th>
-              <th>Status</th>
-              <th>Server</th>
-              <th>Assignment</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredVPS.map((vps) => (
-              <tr key={vps.id}>
-                <td>
-                  <a href={`/vps/${vps.id}`} className="vps-link">
-                    #{vps.id}
-                  </a>
-                </td>
-                <td>{vps.name}</td>
-                <td>
-                  <span className={vps.status === "Ready" ? "status-ready" : "status-linked"}>
-                    {vps.status}
-                  </span>
-                </td>
-                <td>{vps.server}</td>
-                <td>{vps.assignment}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+    );
 };
+
 export default ConsultVPS;

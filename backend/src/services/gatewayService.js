@@ -1,9 +1,9 @@
 const ping = require('ping');
 
 const gatewayList = [
-  { id: 'vyos-1', ip: '172.20.10.7', name: 'Main Gateway' },
-  { id: 'vyos-2', ip: '172.20.10.34', name: 'Main Gateway 2' },
-  { id: 'vyos-3', ip: '172.20.10.34', name: 'Main Gateway 2' },
+  { id: 'vyos-1', ip: '192.168.4.40', name: 'Main Gateway' },
+  { id: 'vyos-2', ip: '192.168.4.20', name: 'Main Gateway 2' },
+  { id: 'vyos-3', ip: '192.168.4.30', name: 'Main Gateway 3' },
 ];
 
 exports.fetchGatewaysStatus = async () => {

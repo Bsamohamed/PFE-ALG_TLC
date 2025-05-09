@@ -3,7 +3,7 @@ const mysql = require('mysql2/promise');
 require('dotenv').config();
 
 const radiusDB = mysql.createPool({
-  host: '172.16.110.130',     
+  host: '192.168.4.10',     
   user: 'mohammed',
   password: 'mohammed',
   database: 'freeradius',

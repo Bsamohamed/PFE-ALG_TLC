@@ -5,10 +5,10 @@ import "../styles/Gateway.css";
 
 const ManageGateway = () => {
   return (
-    <div className="manage-gateway-container">
+    <div className="mgw-container">
       <Sidebar />
-      <div className="gateway-content">
-        <h1>Manage Gateway</h1>
+      <div className="mgw-content">
+        <h1 className="mgw-content__title">Manage Gateway</h1>
         <GatewayTable />
       </div>
     </div>

@@ -67,9 +67,10 @@ const ConsultVPS = () => {
                                     </a>
                                 </td>
                                 <td>
-                                    <span className={vps.status === "Reachable" ? "status-reachable" : "status-unreachable"}>
-                                        {vps.status}
-                                    </span>
+                                   
+                                 <span className={vps.status.toLowerCase() === "reachable" ? "status-reachable-pulse" : "status-unreachable-flash"}>
+  {vps.status}
+</span>
                                 </td>
                                 <td>{vps["assigned_gateway"] || "-"}</td>
                                 <td>{vps["assigned_ip"] || "-"}</td>

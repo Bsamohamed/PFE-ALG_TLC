@@ -13,7 +13,6 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    console.log("Login button clicked!");
     setError(""); // Clear previous errors
     try {
       const response = await fetch("http://localhost:5000/api/admin/login", {
@@ -27,7 +26,6 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token & redirect to Admin Dashboard
         localStorage.setItem("token", data.token);
         navigate("/Dashboard");
       } else {
@@ -39,19 +37,45 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-card">
-        <img src={logo} alt="Algerie Telecom" className="logo" />
-        <h2 className="title">Admin Login Page</h2>
-        <p className="subtitle">Enter your credentials to access the admin panel</p>
+    <div className="login-wrapper">
+      <video autoPlay muted loop playsInline className="login-video">
+        <source src="/video2.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-        <InputField type="email" placeholder="Email" icon="📧" value={email} onChange={setEmail} />
-        <InputField type="text" placeholder="Username" icon="👤" value={username} onChange={setUsername} />
-        <InputField type="password" placeholder="Password" icon="🔒" showPasswordToggle value={password} onChange={setPassword} />
+      <div className="login-main-container">
+        <div className="login-card-box">
+          <img src={logo} alt="Algerie Telecom" className="login-logo" />
+          <h2 className="login-title">Admin Login Page</h2>
+          <p className="login-subtitle">Enter your credentials to access the admin panel</p>
 
-        {error && <p className="error-message">{error}</p>}
+          <InputField
+            type="email"
+            placeholder="Email"
+          
+            value={email}
+            onChange={setEmail}
+          />
+          <InputField
+            type="text"
+            placeholder="Username"
+            
+            value={username}
+            onChange={setUsername}
+          />
+          <InputField
+            type="password"
+            placeholder="Password"
+            
+            
+            value={password}
+            onChange={setPassword}
+          />
 
-        <Button text="Sign In" onClick={handleLogin} />
+          {error && <p className="login-error-message">{error}</p>}
+
+          <Button text="Sign In" onClick={handleLogin} className="login-button-submit" />
+        </div>
       </div>
     </div>
   );

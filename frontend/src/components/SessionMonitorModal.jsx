@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "../styles/SessionMonitorModal.css"; // Ensure you have the styles defined
+import "../styles/SessionMonitorModal.css";
 
 const SessionMonitorModal = ({ client, onClose }) => {
   const [logs, setLogs] = useState(null);
@@ -42,11 +42,11 @@ const SessionMonitorModal = ({ client, onClose }) => {
   if (!client) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>Monitoring <strong>{client.name}</strong> Account Session</h2>
+    <div className="session-monitor-overlay">
+      <div className="session-monitor-content">
+        <h2 className="session-monitor-title">Monitoring <strong className="session-monitor-client-name">{client.name}</strong> Account Session</h2>
         {renderSessions()}
-        <button onClick={onClose}>Close</button>
+        <button className="session-monitor-close-btn" onClick={onClose}>Close</button>
       </div>
     </div>
   );

@@ -1,63 +1,20 @@
+// src/components/GatewayTable.jsx
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-
-const Modal = ({ title, headers, rows, onClose }) => {
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3>{title}</h3>
-        <table>
-          <thead>
-            <tr>
-              {headers.map((header, index) => (
-                <th key={index}>{header}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, index) => (
-              <tr key={index}>
-                {row.cells.map((cell, cellIndex) => (
-                  <td key={cellIndex}>{cell}</td>
-                ))}
-                <td>
-                  <button className="link-button" onClick={row.onClick}>
-                    {row.actionText}
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-Modal.propTypes = {
-  title: PropTypes.string.isRequired,
-  headers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  rows: PropTypes.arrayOf(
-    PropTypes.shape({
-      cells: PropTypes.arrayOf(PropTypes.node).isRequired,
-      actionText: PropTypes.string.isRequired,
-      onClick: PropTypes.func.isRequired,
-    })
-  ).isRequired,
-  onClose: PropTypes.func.isRequired,
-};
 
 const GatewayTable = () => {
   const [gateways, setGateways] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState(null);
   const [filterText, setFilterText] = useState("");
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/gateways")
       .then((response) => {
-        setGateways(response.data);
+        const data = Array.isArray(response.data)
+          ? response.data
+          : response.data.gateways || [];
+        setGateways(data);
         setLoading(false);
       })
       .catch((err) => {
@@ -67,32 +24,32 @@ const GatewayTable = () => {
       });
   }, []);
 
-  const filteredGateways = gateways.filter((gateway) => {
+  if (loading) return <p>Chargement…</p>;
+  if (error)   return <p>{error}</p>;
+
+  const filteredGateways = gateways.filter((gw) => {
     const text = filterText.toLowerCase();
     return (
-      gateway.id.toString().includes(text) ||
-      gateway.name.toLowerCase().includes(text) ||
-      gateway.ip.toLowerCase().includes(text) ||
-      gateway.status.toLowerCase().includes(text)
+      gw.id.toString().includes(text) ||
+      gw.name.toLowerCase().includes(text) ||
+      gw.ip.toLowerCase().includes(text) ||
+      gw.status.toString().toLowerCase().includes(text)
     );
   });
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>{error}</p>;
-
   return (
-    <div className="gateway-table">
-      <h2>Liste des Gateways</h2>
+    <div className="mgw-table-container">
+      <h2 className="mgw-content__subtitle">Liste des Gateways</h2>
 
       <input
         type="text"
+        className="mgw-filter"
         placeholder="Rechercher par ID, nom, IP ou statut"
         value={filterText}
         onChange={(e) => setFilterText(e.target.value)}
-        style={{ marginBottom: "1rem", padding: "0.5rem", width: "320px" }}
       />
 
-      <table>
+      <table className="mgw-table">
         <thead>
           <tr>
             <th>Gateway ID</th>
@@ -103,18 +60,29 @@ const GatewayTable = () => {
         </thead>
         <tbody>
           {filteredGateways.length > 0 ? (
-            filteredGateways.map((gateway) => (
-              <tr key={gateway.id}>
-                <td>
-                  <button className="link-button">#{gateway.id}</button>
-                </td>
-                <td>{gateway.name}</td>
-                <td>{gateway.ip}</td>
-                <td className={gateway.status === "Available" ? "available" : "in-use"}>
-                  {gateway.status}
-                </td>
-              </tr>
-            ))
+            filteredGateways.map((gw) => {
+              // normalize once
+              const statusNormalized = gw.status?.toString().trim().toLowerCase();
+              const isOnline = statusNormalized === "online";
+              return (
+                <tr key={gw.id}>
+                  <td><button className="mgw-link">#{gw.id}</button></td>
+                  <td>{gw.name}</td>
+                  <td>{gw.ip}</td>
+                  <td>
+                    <span
+                      className={`mgw-status ${
+                        isOnline
+                          ? "mgw-status--online"
+                          : "mgw-status--offline"
+                      }`}
+                    >
+                      {gw.status}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })
           ) : (
             <tr>
               <td colSpan="4">Aucun résultat trouvé.</td>

@@ -1,30 +1,46 @@
 .action-menu {
     position: absolute;
-    background: rgb(222, 9, 9);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    z-index: 100;
-  }
-  
-  .action-menu button {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    min-width: 180px;
+    z-index: 1000;
+      /* Existing styles */
+  max-width: calc(100vw - 20px); /* Prevent overflow */
+  overflow: visible;
+  /* Add smart positioning */
+  right: auto !important; /* Disable default right */
+  left: 0; /* Base position */
+}
+
+.action-menu button {
     background: none;
     border: none;
-    padding: 10px;
+    padding: 8px 16px;
     text-align: left;
     width: 100%;
     cursor: pointer;
     font-size: 14px;
-  }
-  
-  .action-menu button:hover {
-    background: #c20707;
-  }
-  
-  .menu-wrapper {
-    position: absolute;
-    z-index: 100;
-  }
-  
+    color: #333333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.action-menu button:hover {
+    background: #f5f5f5;
+    color: #007bff;
+}
+
+.action-menu button:active {
+    background: #ebebeb;
+}
+
+/* Add icon alignment */
+.action-menu button svg {
+    width: 14px;
+    height: 14px;
+}

@@ -7,7 +7,6 @@ import SetDataLimitModal from "../components/SetDataLimitModal";
 import ForceLogoutModal from "../components/ForceLogoutModal"; 
 import DisableAccountModal from "../components/DisableAccountModal";
 import EnableAccountModal from "../components/EnableAccountModal";  
-import DeleteConfirmationModal from "../components/DeleteConfirmationModal"; 
 import SessionMonitorModal from "../components/SessionMonitorModal";
 import CreateClientCard from '../components/CreateClientCard';
 import { FaLink, FaUnlink, FaPen, FaInfoCircle, FaTrash, FaEllipsisV } from "react-icons/fa";
@@ -182,11 +181,25 @@ const gatewayMap = {
   };
   
 
-  const handleMenuOpen = (event, client) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setMenuPosition({ top: rect.bottom + 5, left: rect.left });
-    setMenuClient(client);
-  };
+const handleMenuOpen = (event, client) => {
+  const rect = event.currentTarget.getBoundingClientRect();
+  const menuWidth = 180; // Match CSS min-width
+  const windowWidth = window.innerWidth;
+  
+  // Calculate available space on the right
+  let left = rect.left;
+  if (rect.left + menuWidth > windowWidth) {
+    left = windowWidth - menuWidth - 10; // 10px buffer from edge
+  }
+
+  setMenuPosition({ 
+    top: rect.bottom + 5, 
+    left: left // Use adjusted position
+  });
+  setMenuClient(client);
+
+  
+};
 
   const filteredClients = clients.filter((client) => {
     const name = client.name?.toLowerCase() || '';
@@ -362,27 +375,37 @@ const gatewayMap = {
 )}
 
 
-      {deleteClient && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>
-              You are going to Delete <strong>{deleteClient.name}</strong> Account
-            </h2>
-            <div className="modal-actions">
-              <button className="cancel-btn" onClick={() => setDeleteClient(null)}>Cancel</button>
-              <button className="delete-btn" onClick={() => handleDelete(deleteClient.id)}>
-                <i className="fa fa-trash"></i> Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {menuClient && (
-        <div 
-          className="menu-wrapper"
-          style={{ top: menuPosition.top, left: menuPosition.left }}
+{deleteClient && (
+  <div className="delete-modal-overlay">
+    <div className="delete-modal-content">
+      <h2 className="delete-modal-title">
+        You are going to Delete <strong>{deleteClient.name}</strong> Account
+      </h2>
+      <div className="delete-modal-actions">
+        <button className="delete-modal-cancel-btn" onClick={() => setDeleteClient(null)}>
+          Cancel
+        </button>
+        <button 
+          className="delete-modal-confirm-btn" 
+          onClick={() => handleDelete(deleteClient.id)}
         >
+          <i className="fa fa-trash"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+     {menuClient && (
+   <div 
+    className={`menu-wrapper ${menuPosition.left < 100 ? 'right-edge' : ''}`}
+    style={{
+      position: 'fixed',
+      top: menuPosition.top,
+      left: menuPosition.left,
+      zIndex: 1000
+    }}
+  >
           <ActionMenu 
             client={menuClient} 
             setDataLimitClient={setDataLimitClient}

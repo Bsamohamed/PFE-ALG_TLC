@@ -79,3 +79,75 @@ h2 {
 .assign-button:hover {
   color: #1e40af;
 }
+
+/* Add these keyframes */
+@keyframes pulseReachable {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shakeUnreachable {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(3px); }
+  50% { transform: translateX(-3px); }
+  75% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+/* Updated status classes */
+.status-reachable-pulse {
+  color: #28a745 !important;
+  background-color: rgba(40, 167, 69, 0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  animation: pulseReachable 2s infinite;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.status-unreachable-flash {
+  color: #dc3545 !important;
+  background-color: rgba(220, 53, 69, 0.1);
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 110px;
+  animation: shakeUnreachable 1s ease-in-out infinite;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+/* Table row animations */
+.vps-table tr {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vps-table tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+
+/* Keep existing styles and add these enhancements */
+.vps-table th, 
+.vps-table td {
+  text-align: center !important;
+  vertical-align: middle;
+  padding: 15px;
+}
+
+.assign-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.assign-button:hover {
+  transform: rotate(15deg) scale(1.1);
+}

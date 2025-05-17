@@ -1,0 +1,134 @@
+/* Sidebar.css */
+
+/* Add these keyframes */
+@keyframes textPulse {
+  0% { opacity: 0.9; }
+  50% { opacity: 0.7; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes iconPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Update the existing pulseRed animation */
+@keyframes pulseRed {
+  0% { background-color: rgba(255, 0, 0, 0.05); }
+  50% { background-color: rgba(255, 0, 0, 0.1); }
+  100% { background-color: rgba(255, 0, 0, 0.05); }
+}
+
+/* Add icon animation */
+.MuiListItemButton-root[aria-label="Sign Out"] .MuiSvgIcon-root {
+  animation: iconPulse 2s ease-in-out infinite;
+}
+/* Keyframes for sidebar animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* White sidebar styling */
+.MuiDrawer-paper {
+  background: #ffffff !important;
+  animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Logo animation */
+.MuiToolbar-root {
+  transition: transform 0.3s ease;
+}
+
+.MuiToolbar-root:hover {
+  transform: scale(1.05);
+}
+
+/* Menu items styling */
+.MuiListItemButton-root {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  color: #333333 !important;
+}
+
+.MuiListItemButton-root:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  transform: translateX(8px);
+}
+
+/* Icon styling */
+.MuiListItemIcon-root {
+  transition: transform 0.3s ease !important;
+  color: #333333 !important;
+}
+
+.MuiListItemButton-root:hover .MuiListItemIcon-root {
+  transform: rotate(-5deg) scale(1.1);
+  color: #1a237e !important;
+}
+
+/* Active menu item */
+.MuiListItemButton-root.Mui-selected {
+  background-color: #e3f2fd !important;
+}
+
+.MuiListItemButton-root.Mui-selected:hover {
+  background-color: #bbdefb !important;
+}
+
+/* Sign Out button animation */
+@keyframes pulseRed {
+  0% { background-color: rgba(255, 0, 0, 0.05); }
+  50% { background-color: rgba(255, 0, 0, 0.1); }
+  100% { background-color: rgba(255, 0, 0, 0.05); }
+}
+
+.MuiListItemButton-root[aria-label="Sign Out"] {
+  transition: all 0.3s ease !important;
+  color: #d32f2f !important;
+}
+
+.MuiListItemButton-root[aria-label="Sign Out"]:hover {
+  animation: pulseRed 1.5s ease infinite;
+}
+
+/* Text styling */
+.MuiListItemText-primary {
+  font-weight: 500 !important;
+  letter-spacing: 0.5px;
+}
+
+/* Divider styling */
+.MuiDivider-root {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+  margin: 12px 0 !important;
+}
+
+/* Dialog animations remain the same */
+.MuiDialog-paper {
+  animation: dialogEntry 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .MuiDrawer-paper {
+    width: 200px !important;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .MuiListItemText-primary {
+    font-size: 0.9rem !important;
+  }
+  
+  .MuiListItemIcon-root {
+    min-width: 36px !important;
+  }
+}

@@ -1,22 +1,26 @@
+import React from "react";
+import "../styles/DeleteConfirmationModal.css";
+
 const DeleteConfirmationModal = ({ client, onDelete, onCancel }) => {
-    if (!client) return null; // Only show when a client is selected
-  
-    return (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h2>
-            You are going to Delete <strong>{client.name}</strong> Account
-          </h2>
-          <div className="modal-actions">
-            <button className="cancel-btn" onClick={onCancel}>Cancel</button>
-            <button className="delete-btn" onClick={() => onDelete(client.id)}>
-              <i className="fa fa-trash"></i> Delete
-            </button>
-          </div>
+  if (!client) return null;
+
+  return (
+    <div className="dc-modal-overlay">
+      <div className="dc-modal-content">
+        <h2 className="dc-modal-title">
+          You are going to Delete <strong className="dc-client-name">{client.name}</strong> Account
+        </h2>
+        <div className="dc-modal-actions">
+          <button className="dc-cancel-btn" onClick={onCancel}>
+            Cancel
+          </button>
+          <button className="dc-delete-btn" onClick={() => onDelete(client.id)}>
+            <i className="fa fa-trash dc-trash-icon"></i> Delete
+          </button>
         </div>
       </div>
-    );
-  };
-  
-  export default DeleteConfirmationModal;
-  
+    </div>
+  );
+};
+
+export default DeleteConfirmationModal;

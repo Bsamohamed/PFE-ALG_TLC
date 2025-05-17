@@ -229,3 +229,315 @@ td a:hover {
   cursor: pointer;
 }
 
+/* Delete Modal spécifique */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.delete-modal-title {
+  color: #2d3436;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.delete-modal-title strong {
+  color: #e74c3c;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.delete-modal-cancel-btn {
+  background: #f8f9fa;
+  color: #2d3436 !important;
+  border: 2px solid #e9ecef;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.delete-modal-cancel-btn:hover {
+  background: #e9ecef;
+}
+
+.delete-modal-confirm-btn {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white !important;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.delete-modal-confirm-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.delete-modal-confirm-btn .fa-trash {
+  font-size: 14px;
+}
+
+/* Add these keyframes at the top */
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+/* Create Client Card Animation */
+.create-client-modal {
+  animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-origin: top center;
+}
+
+/* Modal Animations */
+.modal-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Assign Gateway Card Animation */
+.assign-card {
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-origin: center;
+}
+
+/* Delete Modal Animation */
+.delete-modal-content {
+  animation: bounce 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Table Row Hover Effect */
+tr {
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+}
+
+tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Action Icons Animation */
+.icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(1);
+}
+
+.icon:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Button Hover Effects */
+.create-btn {
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+}
+
+.create-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Error Message Animation */
+.error-message {
+  animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Loading Indicator Animation */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.loading-indicator {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Gateway Options Button Hover */
+.gateway-options button {
+  transition: all 0.3s ease;
+}
+
+.gateway-options button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 119, 255, 0.2);
+}
+
+/* Delete Button Animation */
+.delete-modal-confirm-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.delete-modal-confirm-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Menu Wrapper Animation */
+.menu-wrapper {
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top left;
+}
+
+/* In your ManageClients.css */
+td:nth-child(4) {  /* Target the Assignment column */
+  white-space: nowrap;
+  min-width: 120px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th:nth-child(4) {  /* Header alignment */
+  min-width: 120px;
+}
+
+/* For the Actions column */
+td:nth-child(5) {
+  min-width: 180px;
+}
+
+td:nth-child(4):hover {
+  overflow: visible;
+  white-space: normal;
+  position: relative;
+  z-index: 1;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Improved Table Column Handling */
+table {
+  table-layout: fixed; /* Add this */
+  width: 100%;
+}
+
+/* Assignment Column */
+td:nth-child(4),
+th:nth-child(4) {
+  width: 150px; /* Fixed width instead of min/max */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 20px; /* Add breathing room */
+}
+
+/* Actions Column */
+td:nth-child(5),
+th:nth-child(5) {
+  width: 180px; /* Fixed width */
+  padding-left: 15px;
+}
+
+/* Enhanced Hover Expansion */
+td:nth-child(4):hover {
+  overflow: visible;
+  white-space: normal;
+  z-index: 100;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  min-width: 200px;
+  max-width: 300px;
+  position: absolute;
+  margin-top: -10px;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+/* Add these fixes */
+table {
+  border-collapse: separate; /* Change from collapse to separate */
+  border-spacing: 0 8px; /* Add vertical spacing between rows */
+}
+
+tr {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtler shadow */
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+td {
+  border-bottom: none !important; /* Remove default border */
+  position: relative;
+}
+
+/* Add bottom border to header only */
+th {
+  border-bottom: 2px solid #ddd !important;
+  background: #f9f9f9;
+}
+
+/* Remove absolute positioning from assignment hover */
+td:nth-child(4):hover {
+  position: relative;
+  margin-top: 0;
+  transform: scale(1.02);
+  z-index: 2;
+}

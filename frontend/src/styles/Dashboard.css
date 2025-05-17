@@ -1,14 +1,63 @@
+/* Keyframes should be at the very top */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardGlowYellow {
+  0%   { box-shadow: 0 0 15px rgba(255,247,0,  0.2); }
+  50%  { box-shadow: 0 0 25px rgba(255,247,0,  0.4); }
+  100% { box-shadow: 0 0 15px rgba(255,247,0,  0.2); }
+}
+@keyframes cardGlowRed {
+  0%   { box-shadow: 0 0 15px rgba(244,  0,  0, 0.2); }
+  50%  { box-shadow: 0 0 25px rgba(244,  0,  0, 0.4); }
+  100% { box-shadow: 0 0 15px rgba(244,  0,  0, 0.2); }
+}
+@keyframes cardGlowBlue {
+  0%   { box-shadow: 0 0 15px rgba(14,  46,255, 0.2); }
+  50%  { box-shadow: 0 0 25px rgba(14,  46,255, 0.4); }
+  100% { box-shadow: 0 0 15px rgba(14,  46,255, 0.2); }
+}
+
+@keyframes iconSpin {
+  from { transform: rotate(0deg) scale(1); }
+  to   { transform: rotate(360deg) scale(1.2); }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Main CSS */
 .dashboard-container {
   display: flex;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   background: #f8f8f8;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .dashboard-content {
   flex: 1;
   padding: 20px;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
 }
 
 h2 {
@@ -19,6 +68,8 @@ h2 {
   display: flex;
   gap: 20px;
   margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
 }
 
 .stat-box {
@@ -27,7 +78,15 @@ h2 {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 0.5s forwards;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.15);
 }
 
 .stat-number {
@@ -35,37 +94,154 @@ h2 {
   font-size: 24px;
   font-weight: bold;
   margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.stat-number:hover {
+  animation: pulse 0.6s ease;
 }
 
 .cards-container {
   display: flex;
   gap: 20px;
   justify-content: space-between;
+  margin-top: 150px;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out 0.6s forwards;
 }
 
 .dashboard-card {
   width: 300px;
+  height: 200px;
   padding: 20px;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   text-align: center;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  animation-name: fadeInUp;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
 }
 
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+/* Staggered fade-in delays */
+.cards-container .dashboard-card:nth-child(1) { animation-delay: 0.7s; }
+.cards-container .dashboard-card:nth-child(2) { animation-delay: 0.8s; }
+.cards-container .dashboard-card:nth-child(3) { animation-delay: 0.9s; }
+
+/* Remove generic overlay */
+.dashboard-card::before {
+  content: none;
 }
 
-.icon {
-  font-size: 40px;
-  margin-bottom: 10px;
+/* Base variant borders */
+.dashboard-card.yellow { border: 2px solid #fff700; }
+.dashboard-card.red    { border: 2px solid #f40000; }
+.dashboard-card.blue   { border: 2px solid #0e2eff; }
+
+/* Per-variant overlays */
+.dashboard-card.yellow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255,247,0,0.1)   0%,
+    rgba(255,255,255,0)   50%,
+    rgba(255,247,0,0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.dashboard-card.red::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(244,0,0,0.1)   0%,
+    rgba(255,255,255,0) 50%,
+    rgba(244,0,0,0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.dashboard-card.blue::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(14,46,255,0.1)   0%,
+    rgba(255,255,255,0)   50%,
+    rgba(14,46,255,0.1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-/* Couleurs */
-.dashboard-card.yellow { border-left: 6px solid #fbc02d; }
-.dashboard-card.red { border-left: 6px solid #e53935; }
-.dashboard-card.blue { border-left: 6px solid #1e88e5; }
+/* Hover rules per variant */
+.dashboard-card.yellow:hover {
+  transform: translateY(-8px) scale(1.03);
+  z-index: 1;
+  border-color: #fff700 !important;
+  animation: cardGlowYellow 1.5s ease-in-out infinite;
+}
+.dashboard-card.yellow:hover::before {
+  opacity: 1;
+}
+
+.dashboard-card.red:hover {
+  transform: translateY(-8px) scale(1.03);
+  z-index: 1;
+  border-color: #f40000 !important;
+  animation: cardGlowRed 1.5s ease-in-out infinite;
+}
+.dashboard-card.red:hover::before {
+  opacity: 1;
+}
+
+.dashboard-card.blue:hover {
+  transform: translateY(-8px) scale(1.03);
+  z-index: 1;
+  border-color: #0e2eff !important;
+  animation: cardGlowBlue 1.5s ease-in-out infinite;
+}
+.dashboard-card.blue:hover::before {
+  opacity: 1;
+}
+
+.dashboard-icon {
+  width: 50px;
+  height: 50px;
+  transition: all 0.4s cubic-bezier(0.68,-0.55,0.27,1.55);
+}
+
+.dashboard-card:hover .dashboard-icon {
+  animation: iconSpin 0.6s ease-in-out;
+  filter: drop-shadow(0 2px 4px currentColor);
+}
+
+/* Sidebar Animations */
+.MuiDrawer-paper {
+  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.MuiListItemButton-root {
+  transition: all 0.3s ease;
+}
+
+.MuiListItemButton-root:hover {
+  transform: translateX(8px);
+  background-color: rgba(25,118,210,0.08);
+}
+
+/* Dialog Animation */
+.MuiDialog-paper {
+  animation: scaleIn 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
+}

@@ -3,9 +3,9 @@ const router = express.Router();
 const mysql = require("mysql2/promise");
 
 const gatewayMap = {
-  1: "192.168.4.40",
-  2: "192.168.4.20",
-  3: "192.168.4.30",
+  1: "192.168.5.10",
+  2: "192.168.5.20",
+  3: "192.168.5.30",
 };
 
 const dbConfig = {
@@ -52,7 +52,7 @@ router.post("/assign-gateway/:id", async (req, res) => {
       );
     } else {
       await connection.execute(
-        "INSERT INTO radcheck (username, attribute, op, value) VALUES (?, 'NAS-IP-Address', ':=', ?)",
+        "INSERT INTO radcheck (username, attribute, op, value) VALUES (?, 'NAS-IP-Address', '==', ?)",
         [username, gatewayIP]
       );
     }

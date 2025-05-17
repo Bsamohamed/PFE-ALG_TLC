@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "../styles/ActionMenu.css";
 
+
 const ActionMenu = ({ client, setDataLimitClient,setLogoutClient,setSessionClient,setDeleteClient,setDisableAccount,setEnableClient,onClose }) => {
   const menuRef = useRef(null);
 
@@ -17,13 +18,7 @@ const ActionMenu = ({ client, setDataLimitClient,setLogoutClient,setSessionClien
   return (
     <div ref={menuRef} className="action-menu">
       
-     <button onClick={() => { 
-  console.log("Setting Data Limit for:", client); // Debugging line
-  setDataLimitClient(client);
-  onClose();
-}}>
-  Set Data Limits
-</button>
+  
 <button onClick={() => { setDisableAccount(client); onClose(); }}>
   Disable Account
 </button>
@@ -37,7 +32,7 @@ const ActionMenu = ({ client, setDataLimitClient,setLogoutClient,setSessionClien
 }}> Monitor Sessions</button>
 
 
-<button onClick={() => setLogoutClient(client)}>Force Logout</button>
+
 
     </div>
   );

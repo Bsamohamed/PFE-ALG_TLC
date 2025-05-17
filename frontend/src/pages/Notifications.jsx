@@ -7,10 +7,9 @@ import { clientService } from "../services/api";
 function Notifications() {
   const [notifications, setNotifications] = useState([]);
   const [selectedNotification, setSelectedNotification] = useState(null);
-  
-  const detailsPanelRef = useRef(null);  // Référence pour le panneau des détails
 
-  // Récupération des anomalies
+  const detailsPanelRef = useRef(null); // Reference for details panel
+
   const fetchAnomalies = async () => {
     try {
       const response = await clientService.getAnomalies();
@@ -27,7 +26,7 @@ function Notifications() {
         time: new Date(item.acctstarttime).toLocaleTimeString(),
         message: "Anomalie détectée de",
         highlight: item.username || item.nasipaddress || "Inconnu",
-        icon: <FaExclamationTriangle className="warning-icon" />,
+        icon: <FaExclamationTriangle className="warning-icon-pulse" />,
       }));
 
       setNotifications(formatted);
@@ -48,9 +47,9 @@ function Notifications() {
   }, []);
 
   const handleDelete = (id) => {
-    setNotifications((prev) => prev.filter((notification) => notification.id !== id));
-    if (selectedNotification && selectedNotification.id === id) {
-      setSelectedNotification(null);  // Fermer le panneau si la notification supprimée est celle affichée
+    setNotifications((prev) => prev.filter((n) => n.id !== id));
+    if (selectedNotification?.id === id) {
+      setSelectedNotification(null);
     }
   };
 
@@ -58,22 +57,15 @@ function Notifications() {
     setSelectedNotification(notification);
   };
 
-  // Fermer la carte si un clic se produit en dehors de celle-ci
   const handleClickOutside = (event) => {
-    // Vérifie si l'événement n'est pas déclenché sur la carte des détails ou ses enfants
     if (detailsPanelRef.current && !detailsPanelRef.current.contains(event.target)) {
-      setSelectedNotification(null);  // Fermer la carte de détails
+      setSelectedNotification(null);
     }
   };
 
   useEffect(() => {
-    // Ajouter l'événement de clic global
     document.addEventListener("click", handleClickOutside);
-
-    // Nettoyage de l'événement
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
@@ -90,28 +82,24 @@ function Notifications() {
               <div key={notification.id} className="notification-card">
                 <span className="notification-time">{notification.time}</span>
                 <span className="notification-message">
-                  {notification.message}{" "}
-                  <strong className="notification-highlight">
-                    {notification.highlight}
-                  </strong>
+                  {notification.icon} {notification.message}{" "}
+                  <strong className="notification-highlight">{notification.highlight}</strong>
                 </span>
 
                 <div className="notification-actions">
-                  {/* Afficher les détails */}
                   <span
                     className="notification-icon"
                     title="Afficher les détails"
                     onClick={(e) => {
-                      e.stopPropagation(); // Empêche le clic d'être propagé et déclencher handleClickOutside
+                      e.stopPropagation();
                       handleSelect(notification);
                     }}
                   >
                     <FaEye />
                   </span>
 
-                  {/* Supprimer */}
                   <span
-                    className="notification-icon"
+                    className="notification-icon notification-icon-delete"
                     title="Supprimer"
                     onClick={() => handleDelete(notification.id)}
                   >
@@ -126,7 +114,7 @@ function Notifications() {
         </div>
       </div>
 
-      {/* ✅ Détails de l’anomalie sélectionnée */}
+      {/* Détails de l’anomalie sélectionnée */}
       {selectedNotification && (
         <div ref={detailsPanelRef} className="notification-details-panel">
           <div className="details-header">

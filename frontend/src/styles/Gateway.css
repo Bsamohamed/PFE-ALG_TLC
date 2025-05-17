@@ -1,182 +1,260 @@
-.manage-gateway-container {
+/* =============================================================================
+   Gateway Animations (top of file)
+   ============================================================================= */
+@keyframes mgw-fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes mgw-pulse {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  50%  { transform: scale(1.05); opacity: 1;   }
+  100% { transform: scale(1);   opacity: 0.8; }
+}
+
+@keyframes mgw-loadingPulse {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 1;   }
+  100% { opacity: 0.6; }
+}
+
+/* =============================================================================
+   Layout
+   ============================================================================= */
+.mgw-container {
   display: flex;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   background: #f8f8f8;
+  animation: mgw-fadeIn 0.6s ease-out;
 }
 
-.gateway-content {
+.mgw-content {
   flex: 1;
   padding: 20px;
 }
 
-.gateway-content h2 {
+.mgw-content__title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.mgw-content__subtitle {
   margin-bottom: 10px;
+  font-size: 1.25rem;
 }
 
-.gateway-content label {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.gateway-input {
+/* =============================================================================
+   Search / Filter
+   ============================================================================= */
+.mgw-filter {
   display: block;
   width: 100%;
-  max-width: 300px;
-  padding: 10px;
-  margin: 10px 0 20px;
+  max-width: 320px;
+  margin: 1rem 0 2rem;
+  padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+.mgw-filter:focus {
+  border-color: #007bff;
 }
 
-.gateway-table {
+/* =============================================================================
+   Table Container
+   ============================================================================= */
+.mgw-table-container {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  animation: mgw-fadeIn 0.8s ease-out;
 }
 
-table {
+.mgw-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
+.mgw-table th,
+.mgw-table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
   border-bottom: 1px solid #ddd;
 }
 
-th {
-  font-size: 14px;
+.mgw-table th {
+  background: #f9f9f9;
   font-weight: bold;
 }
 
-a {
-  color: blue;
+/* =============================================================================
+   Status Pills
+   ============================================================================= */
+/* =============================================================================
+   Status Pills
+   ============================================================================= */
+.mgw-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.mgw-status--online {
+  color: #28a745 !important;
+  background-color: rgba(40,167,69,0.1) !important;
+  /* … */
+}
+
+.mgw-status--offline {
+  color: #dc3545 !important;
+  background-color: rgba(220,53,69,0.1) !important;
+  /* … */
+}
+
+
+.mgw-status--online:hover,
+.mgw-status--offline:hover {
+  transform: scale(1.05);
+}
+
+
+/* =============================================================================
+   Row Hover
+   ============================================================================= */
+.mgw-table tr {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mgw-table tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* =============================================================================
+   Misc Links & Buttons
+   ============================================================================= */
+.mgw-link {
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 
-.available {
-  color: green;
-  font-weight: bold;
+.mgw-link:hover {
+  text-decoration: underline;
 }
 
-.in-use {
-  color: red;
-  font-weight: bold;
-}
-
-.actions {
-  text-align: center;
-  font-size: 20px;
+.mgw-assign-btn {
+  color: blue;
   cursor: pointer;
+  text-decoration: underline;
 }
 
-/* Table action menu */
-.actions {
+/* =============================================================================
+   Action Menu
+   ============================================================================= */
+.mgw-actions {
   position: relative;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.dots {
-  font-size: 20px;
-  cursor: pointer;
+.mgw-dots {
+  font-size: 1.25rem;
   padding: 5px;
 }
 
-.action-menu {
+.mgw-action-menu {
   position: absolute;
   right: 0;
-  top: 25px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  top: 100%;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  display: flex;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  display: none;
   flex-direction: column;
   width: 180px;
-  z-index: 10;
+  z-index: 100;
 }
 
-.action-menu button {
+.mgw-actions:hover .mgw-action-menu {
+  display: flex;
+}
+
+.mgw-action-menu__btn {
   background: none;
   border: none;
   padding: 10px;
   text-align: left;
   width: 100%;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
-.action-menu button:hover {
+.mgw-action-menu__btn:hover {
   background: #f0f0f0;
 }
 
-.dropdown {
-  background: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 10;
-}
-
-/* Modal Styling */
-.modal {
+/* =============================================================================
+   Modal Overlay & Content
+   ============================================================================= */
+.mgw-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 50%;
-}
-
-.assign-btn {
-  color: blue;
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.assigned {
-  color: green;
-  font-weight: bold;
-}
-
-
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
   justify-content: center;
-  align-items: center;
+  animation: mgw-fadeIn 0.3s ease-out;
+  z-index: 1000;
 }
 
-.modal-content {
-  background: white;
+.mgw-modal-content {
+  background: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 500px;
+  width: 90%;
+  max-width: 500px;
+  animation: mgw-fadeIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
 }
 
-.action-menu {
-  position: absolute;
-  background: white;
-  border: 1px solid #ddd;
-  padding: 10px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+.mgw-modal__actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.mgw-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mgw-btn--cancel {
+  background: #ddd;
+}
+
+.mgw-btn--confirm {
+  background: #dc3545;
+  color: #fff;
+}
+
+/* =============================================================================
+   Loading Indicator
+   ============================================================================= */
+.mgw-loading {
+  animation: mgw-loadingPulse 1.5s infinite;
 }

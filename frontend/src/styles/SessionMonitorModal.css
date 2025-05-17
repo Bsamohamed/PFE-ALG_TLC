@@ -1,5 +1,5 @@
 /* === Overlay === */
-.modal-overlay {
+.session-monitor-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
 }
 
 /* === Modal Box === */
-.modal-content {
+.session-monitor-content {
   background: #1e1e2f;
   color: #f0f0f0;
   padding: 30px;
@@ -24,34 +24,34 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
   font-family: 'Segoe UI', sans-serif;
-  animation: fadeIn 0.3s ease;
+  animation: session-monitor-fadeIn 0.3s ease;
 }
 
 /* === Header === */
-.modal-content h2 {
+.session-monitor-title {
   font-size: 24px;
   margin-bottom: 15px;
   border-bottom: 1px solid #444;
   padding-bottom: 10px;
 }
 
-.modal-content strong {
+.session-monitor-client-name {
   color: #66b3ff;
 }
 
 /* === Sessions List === */
-.sessions-list {
+.session-monitor-list {
   margin-top: 20px;
 }
 
-.sessions-list h3 {
+.session-monitor-list h3 {
   font-size: 18px;
   color: #b3d4fc;
   margin-bottom: 10px;
 }
 
 /* === Each Session === */
-.session-item {
+.session-monitor-item {
   background-color: #2a2a3b;
   margin-bottom: 12px;
   padding: 12px 15px;
@@ -61,7 +61,7 @@
   font-size: 14px;
 }
 
-.session-item pre {
+.session-monitor-item pre {
   margin: 0;
   font-family: 'Fira Code', monospace;
   color: #c5f1ff;
@@ -70,7 +70,7 @@
 }
 
 /* === Close Button === */
-button {
+.session-monitor-close-btn {
   margin-top: 20px;
   padding: 10px 18px;
   background-color: #2563eb;
@@ -82,12 +82,12 @@ button {
   transition: background-color 0.2s ease;
 }
 
-button:hover {
+.session-monitor-close-btn:hover {
   background-color: #1d4ed8;
 }
 
 /* === Fade-in animation === */
-@keyframes fadeIn {
+@keyframes session-monitor-fadeIn {
   from {
     opacity: 0;
     transform: translateY(-20px);
@@ -98,10 +98,10 @@ button:hover {
 }
 
 /* === Scrollbar for session list === */
-.session-item::-webkit-scrollbar {
+.session-monitor-item::-webkit-scrollbar {
   height: 6px;
 }
-.session-item::-webkit-scrollbar-thumb {
+.session-monitor-item::-webkit-scrollbar-thumb {
   background-color: #555;
   border-radius: 3px;
 }

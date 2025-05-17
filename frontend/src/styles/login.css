@@ -5,56 +5,79 @@
   padding: 0;
 }
 
-body {
+body,
+html {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right,#acb4a4, #ffffff);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Video Wrapper */
+.login-wrapper {
+  position: relative;
+  width: 100vw;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* Background Video */
+.login-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  z-index: -1;
+}
+
+/* Main Container */
+.login-main-container {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-/* Container */
-.login-container {
-  width: 100%;
   padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
-/* Login Card */
-.login-card {
-  background-color: #fff;
-  padding: 50px 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+/* Card */
+.login-card-box {
+  background-color: rgba(16, 9, 105, 0.92);
+  padding: 50px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 500px;
+  max-width: 480px;
   text-align: center;
+  color: white;
 }
 
 /* Logo & Title */
-.logo {
+.login-logo {
   width: 120px;
-  margin-bottom: 10px;
-}
-
-.title {
-  font-size: 21px;
-  font-weight: bolder;
-  color: #222;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  color: #666;
-  font-size: 13px;
   margin-bottom: 20px;
 }
 
+.login-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
 /* Input Field Container */
-.input-container {
+.login-input-group {
+  position: relative;
   display: flex;
   align-items: center;
   background-color: #f7f7f7;
@@ -66,63 +89,95 @@ body {
   transition: border 0.3s ease;
 }
 
-.input-container:focus-within {
-  border-color: green;
+.login-input-group:focus-within {
+  border-color: #00c853;
+  box-shadow: 0 0 5px rgba(0, 200, 83, 0.3);
 }
 
-
-
-.input-field {
+/* Input Field */
+.login-input-field {
   flex: 1;
   border: none;
-  background: none;
+  background: transparent;
   outline: none;
   font-size: 14px;
-
+  padding-left: 40px;
+  padding-right: 40px;
   height: 100%;
 }
 
-/* Toggle Password */
-.toggle-password {
-  cursor: pointer;
+/* Icon */
+.login-icon-left {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 16px;
-  color: #999;
+  color: #333;
+}
+
+/* Toggle Password */
+.login-toggle-password {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
 }
 
 /* Button */
-.login-button {
+.login-button-submit {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: none;
   border-radius: 30px;
-  background: linear-gradient(to right, green, navy);
+  background: linear-gradient(to right, #00c853, #1a237e);
   color: #fff;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease;
+  margin-top: 16px;
+  transition: all 0.3s ease;
 }
 
-.login-button:hover {
+.login-button-submit:hover {
   opacity: 0.95;
+  transform: translateY(-1px);
 }
 
 /* Error */
-.error-message {
-  color: #e74c3c;
+.login-error-message {
+  color: #ff4444;
   font-size: 13px;
   margin: 10px 0;
 }
 
-/* Responsive (keeps it centered and clean) */
-@media (max-width: 200px) {
-  .login-card {
-    padding: 40px 10px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-card-box {
+    padding: 40px 20px;
   }
 
-  .input-container {
-    padding: 9px 14px;
-    height: 20px;
+  .login-logo {
+    width: 100px;
+  }
+
+  .login-title {
+    font-size: 22px;
+  }
+
+  .login-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-input-field {
+    font-size: 13px;
+  }
+
+  .login-button-submit {
+    padding: 12px;
   }
 }

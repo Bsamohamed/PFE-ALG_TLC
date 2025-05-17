@@ -1,4 +1,60 @@
-/* ===== Notifications Layout ===== */
+/* ===== Keyframes (Animations) ===== */
+
+@keyframes notificationEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseWarning {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes spinDelete {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes badgePulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes statusPulse {
+  0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes panelContentEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ===== Layout & Containers ===== */
 
 .notifications-container {
   display: flex;
@@ -17,7 +73,7 @@
   overflow-y: auto;
 }
 
-/* ===== Page Titles ===== */
+/* ===== Titles ===== */
 
 .notifications-title {
   font-size: 26px;
@@ -33,7 +89,7 @@
   color: #555;
 }
 
-/* ===== Notification Card ===== */
+/* ===== Notification Cards ===== */
 
 .notification-card {
   display: flex;
@@ -43,11 +99,21 @@
   border-radius: 12px;
   margin-bottom: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  transition: background-color 0.3s ease;
+  animation: notificationEntrance 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  position: relative;
 }
 
 .notification-card:hover {
+  transform: translateX(10px);
   background-color: #f1f1f1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.notification-card-exit {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.4s ease;
 }
 
 .notification-time {
@@ -89,20 +155,44 @@
   transform: scale(1.1);
 }
 
+.notification-icon-delete:hover {
+  animation: spinDelete 0.6s ease;
+}
+
 .warning-icon {
   color: #ff9800;
   margin-right: 6px;
 }
 
-/* ===== Empty Placeholder ===== */
-
-.no-notification {
-  font-style: italic;
-  color: #aaa;
-  margin-top: 10px;
+.warning-icon-pulse {
+  animation: pulseWarning 2s infinite;
+  color: #ff9800;
 }
 
-/* ===== Détails Panel (Sidebar) ===== */
+/* ===== Notification Badge ===== */
+
+.notification-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.notification-badge-pulse {
+  background-color: #dc3545;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  animation: badgePulse 1s infinite;
+}
+
+/* ===== Details Panel ===== */
 
 .notification-details-panel {
   position: fixed;
@@ -122,15 +212,6 @@
   flex-direction: column;
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 .details-header {
   display: flex;
   justify-content: space-between;
@@ -144,25 +225,13 @@
   color: #444;
 }
 
-.close-btn {
-  cursor: pointer;
-  font-size: 24px;
-  color: #888;
-  transition: color 0.2s ease;
-  margin-left: auto; /* Ensure it's aligned to the right */
-}
-
-.close-btn:hover {
-  color: #111;
-}
-
 .details-content {
   flex: 1;
-  overflow-y: auto;
+  animation: panelContentEntrance 0.4s ease;
 }
 
 .detail-row {
-  margin-bottom: 18px; /* Added more space between rows */
+  margin-bottom: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -170,24 +239,53 @@
 
 .detail-row strong {
   color: #555;
-  width: 40%; /* Ensure it doesn't overlap with values */
+  width: 40%;
 }
 
 .detail-row span {
   color: #333;
   word-break: break-word;
-  width: 60%; /* Adjusted to leave some space for labels */
+  width: 60%;
 }
 
+.close-btn {
+  cursor: pointer;
+  font-size: 24px;
+  color: #888;
+  transition: color 0.2s ease;
+  margin-left: auto;
+}
 
+.close-btn:hover {
+  color: #111;
+}
 
-.notification-badge {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: red;
-  color: white;
-  font-size: 12px;
+/* ===== Status Indicators ===== */
+
+.status-indicator-container {
+  margin-right: 15px;
+}
+
+.status-reachable-indicator {
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  padding: 2px 6px;
+  background-color: #28a745;
+  animation: statusPulse 2s infinite;
+}
+
+.status-unreachable-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  animation: statusPulse 2s infinite;
+}
+
+/* ===== Empty State ===== */
+
+.no-notification {
+  font-style: italic;
+  color: #aaa;
+  margin-top: 10px;
 }

@@ -21,18 +21,25 @@ Web Interface: User-friendly dashboard for monitoring and management.
 
 📁 Project Structure
 
-graphql
-Copy
-Edit
+
 PFE-AT/
-├── backend/           # Node.js API and FreeRADIUS integration
-├── frontend/          # React.js user interface
-├── ai-module/         # Python scripts for Isolation Forest
-├── infrastructure/    # Configuration files for VyOS, ocserv, etc.
-├── database/          # SQL scripts and schema definitions
-├── docs/              # Project documentation and diagrams
+
+├── backend/   
+        
+├── frontend/    
+      
+├── ai-module/  
+       
+├── infrastructure/   
+ 
+├── database/      
+    
+├── docs/
+             
 ├── .gitignore
+
 ├── README.md
+
 └── package-lock.json
 
 

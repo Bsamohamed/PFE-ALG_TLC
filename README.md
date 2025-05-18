@@ -12,7 +12,7 @@ This project is a **self-hosted VPN access control and management platform** des
 
 ## ⚙️ System Architecture
 
-<img src="./docs/Schéma infrastructure et partitionnement réseaux.png" alt="Architecture" width="100%">
+<img src="./Infrastructure/Schéma infrastructure et partitionnement réseaux.png" alt="Architecture" width="100%">
 
 **Main Components:**
 - 🛡️ **VyOS Routers** – Act as programmable VPN gateways

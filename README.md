@@ -1,98 +1,81 @@
-PFE-AT: VPN Access Control with Anomaly Detection
+<h1 align="center">🔐 VPN Infrastructure Management System</h1>
+<p align="center"><strong>Project PFE - Algérie Télécom</strong></p>
+<p align="center">Built with ❤️ by Mohamed Bessaa — Network Security & Infrastructure Developer</p>
 
-📌 Overview
+---
 
-PFE-AT is a comprehensive solution integrating a VPN access control system with an AI-based anomaly detection module. It leverages FreeRADIUS for authentication, VyOS for gateway management, and an Isolation Forest algorithm to detect and mitigate unauthorized access attempts.
+## 🌐 Project Overview
 
+This project is a **self-hosted VPN access control and management platform** designed for centralized administration of VPN gateways, VPS servers, and client accounts. It integrates **infrastructure automation**, **secure networking**, and **AI-based anomaly detection** to ensure a scalable and secure private VPN environment.
 
+---
 
-🛠️ Features
+## ⚙️ System Architecture
 
-User Authentication: Secure login through FreeRADIUS.
+<img src="./docs/infra.png" alt="Architecture" width="100%">
 
-Gateway Assignment: Each user is assigned a specific VPN gateway.
+**Main Components:**
+- 🛡️ **VyOS Routers** – Act as programmable VPN gateways
+- 🔄 **FreeRADIUS Server** – Handles client authentication and accounting
+- 💡 **ocserv** – OpenConnect VPN server for client connections
+- 🧠 **AI Module** – Detects abnormal client behavior using Isolation Forest
+- 📦 **Admin Dashboard** – React + Node.js interface for system management
+- 💾 **MariaDB** – Stores clients, gateways, logs, and assignments
 
-Anomaly Detection: Utilizes Isolation Forest to identify unusual access patterns.
+---
 
-Web Interface: User-friendly dashboard for monitoring and management.
+## 💡 Key Features
 
+- 🔑 Assign each client to a specific VPN gateway
+- 🛰️ Prevent connection to unauthorized gateways via FreeRADIUS policies
+- 📡 Centralized management of gateways, VPS servers, and clients
+- 📊 Real-time logging and activity monitoring
+- 🤖 AI detection of suspicious behavior (IP anomaly, login time deviation)
+- 🔐 Hashed admin passwords, protected backend routes
 
+---
 
+## 🔧 Networking & Infrastructure Logic
 
+### 🧩 Gateway Management (VyOS)
+- Each gateway is configured with static IP routing (`eth1` in 192.168.1.X/24)
+- Supports remote configuration and provisioning
+- Tied to specific VPS servers to form a dedicated VPN entry point
 
+### 🔒 Authentication via FreeRADIUS
+- Clients must authenticate via FreeRADIUS before gaining access
+- RADIUS validates:
+  - Credentials (username/password)
+  - Assigned gateway (via `NAS-IP-Address`)
+  - Connection time and IP (for anomaly scoring)
+- RADIUS accounting logs every session in the database
 
+### 🔁 ocserv (OpenConnect)
+- Lightweight VPN server running on VyOS
+- Auth request is forwarded to FreeRADIUS
+- Uses certificates (TLS) + credentials to secure the channel
 
-📁 Project Structure
+### 🧠 AI Security
+- Logs are analyzed by an Isolation Forest model
+- Detects:
+  - Clients connecting at odd times
+  - Unusual IP sources
+  - Abnormally short/long session durations
+- Suspicious behavior is flagged in the admin panel
 
+---
 
-PFE-AT/
+## 📁 Project Structure
 
-├── backend/   
-        
-├── frontend/    
-      
-├── ai-module/  
-       
-├── infrastructure/   
- 
-├── database/      
-    
-├── docs/
-             
-├── .gitignore
-
-├── README.md
-
-└── package-lock.json
-
-
-
-
-
-🚀 Getting Started
-
-Prerequisites
-Node.js (v14 or higher)
-
-Python (v3.8 or higher)
-
-MySQL (v5.7 or higher)
-
-VyOS (for gateway configuration)
-
-ocserv (OpenConnect VPN server)
-
-
-
-
-
-📊 AI Module: Isolation Forest
-
-The AI module employs the Isolation Forest algorithm to detect anomalies in VPN access patterns. It analyzes features such as login times, IP addresses, and user behavior to identify potential security threats.
-
-
-
-
-🖥️ Web Interface
-
-The React.js frontend provides administrators with a dashboard to:
-
-Monitor user activity
-
-View detected anomalies
-
-Manage user access and gateway assignments
-Reddit
-
-
-
-
-
-📄 Documentation
-
-Detailed documentation, including system architecture diagrams and use case descriptions, is available in the docs/ directory.
-
-
-
-
-Feel free to customize this README.md to better fit the specifics of your project. Let me know if you need assistance with any particular section!
+```bash
+PFE-VPN/
+├── backend/            # Node.js + Express backend API
+├── frontend/           # React admin dashboard
+├── ai-module/          # Python scripts: training, detection
+├── infrastructure/
+│   ├── vyos/           # Gateway config (config.boot)
+│   ├── freeradius/     # RADIUS config files
+│   └── ocserv/         # VPN server config
+├── database/           # SQL schema and seed
+├── docs/               # Architecture diagram, user guide
+└── README.md

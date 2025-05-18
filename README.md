@@ -8,11 +8,7 @@
 
 This project is a **self-hosted VPN access control and management platform** designed for centralized administration of VPN gateways, VPS servers, and client accounts. It integrates **infrastructure automation**, **secure networking**, and **AI-based anomaly detection** to ensure a scalable and secure private VPN environment.
 
----
-
-## ⚙️ System Architecture
-
-<img src="./Infrastructure/Schéma infrastructure et partitionnement réseaux.png" alt="Architecture" width="100%">
+----
 
 **Main Components:**
 - 🛡️ **VyOS Routers** – Act as programmable VPN gateways
@@ -69,13 +65,14 @@ This project is a **self-hosted VPN access control and management platform** des
 
 ```bash
 PFE-VPN/
-├── backend/            # Node.js + Express backend API
-├── frontend/           # React admin dashboard
-├── ai-module/          # Python scripts: training, detection
+├── frontend/              # React admin dashboard
+├── backend/               # Node.js + Express backend API
+│   └── ai-module/          # Python scripts: training, detection
 ├── infrastructure/
 │   ├── vyos/           # Gateway config (config.boot)
+│   │     └── ocserv/   # VPN server config
 │   ├── freeradius/     # RADIUS config files
-│   └── ocserv/         # VPN server config
-├── database/           # SQL schema and seed
+│   │     └── database/  # SQL schema and seed
+│   └── Virtual Machins VPS
 ├── docs/               # Architecture diagram, user guide
 └── README.md
